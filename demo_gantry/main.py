@@ -6,7 +6,7 @@ from gc_controller import GameCubeController
 # --- Constants ---
 HOST = "192.168.1.12"
 PORT = 8888
-GANTRY_ID = 0
+GANTRY_ID = 3
 MAX_DISPLACEMENT = -80000  # steps
 MIN_DISPLACEMENT = 0      # steps
 
