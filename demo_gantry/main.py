@@ -58,6 +58,13 @@ def main():
                     buttons_state = gc.buttons.state
                     motor_status = cc.motors.get_status(GANTRY_ID)
 
+                    if buttons_state.Start:
+                        cc.motors.disable(GANTRY_ID)
+                        cc.motors.clear_alerts(GANTRY_ID)
+                        time.sleep(0.25)
+                        cc.motors.enable(GANTRY_ID)
+                        time.sleep(0.25)
+
                     # --- Handle Controller Input ---
                     # Move motor based on 'A' button and joystick direction.
                     if buttons_state.A:
