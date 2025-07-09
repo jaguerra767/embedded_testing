@@ -52,6 +52,14 @@ class MotorControl:
         response = self._controller._send_command(f"M{motor}GP")[3:]
         return int(response.strip())
 
+    def set_velocity(self, motor:int, velo: int) -> str:
+        return self._controller._send_command(f"M{motor}SV{velo}")
+    
+    def set_acceleration(self, motor:int, accel: int) -> str:
+        return self._controller._send_command(f"M{motor}SA{accel}")
+
+    def set_deceleration(self, motor:int, decel: int) ->str:
+        return self._controller._send_command(f"M{motor}SD{decel}")
 
     def get_status(self, motor: int) -> Status:
         """Gets the status of a motor."""

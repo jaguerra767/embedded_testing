@@ -6,7 +6,7 @@ from gc_controller import GameCubeController
 # --- Constants ---
 HOST = "192.168.1.12"
 PORT = 8888
-GANTRY_ID = 3
+GANTRY_ID = 2
 MAX_DISPLACEMENT = -80000  # steps
 MIN_DISPLACEMENT = 0      # steps
 
@@ -27,23 +27,22 @@ def main():
         # The 'with' statement ensures controllers are properly connected and closed.
         with ClearCoreController(HOST, PORT) as cc, GameCubeController() as gc:
             print("Controllers connected. Initializing gantry...")
-
-            # --- Initial Gantry Setup ---
-            if cc.motors.get_status(GANTRY_ID) == 2:  # Status 2 might be 'In Fault'
-                print("Motor in fault, clearing alerts...")
-                cc.motors.clear_alerts(GANTRY_ID)
-                time.sleep(0.5)
-
-            print("Enabling motor...")
-            cc.motors.enable(GANTRY_ID)
+            cc.motors.disable(GANTRY_ID)
+            time.sleep(0.5)
+            print("Motor in fault, clearing alerts...")
+            cc.motors.clear_alerts(GANTRY_ID)
             time.sleep(0.5)
 
-            if cc.motors.get_position(GANTRY_ID) != 0:
-                print("Homing motor to position 0...")
-                cc.motors.absolute_move(GANTRY_ID, 0)
-                # Wait for the homing move to complete
-                while cc.motors.get_status(GANTRY_ID) == 1:  # Status 1 might be 'Moving'
-                    time.sleep(0.1)
+            print("Enabling motor...")
+            print(cc.motors.enable(GANTRY_ID))
+            time.sleep(1)
+
+            res = cc.motors.set_acceleration(GANTRY_ID, 100000)
+            print(f"Res{res}")
+            res = cc.motors.set_deceleration(GANTRY_ID, 100000)
+            print(f"Res{res}")
+            res = cc.motors.set_velocity(GANTRY_ID, 10000)
+            print(f"Res: {res}")    
 
             print("Initialization complete. Ready for input.")
             time.sleep(1)  # Pause before starting the control loop
@@ -64,17 +63,22 @@ def main():
                         time.sleep(0.25)
                         cc.motors.enable(GANTRY_ID)
                         time.sleep(0.25)
+                    
+                    if buttons_state.Z:
+                        if buttons_state.L:
+                            cc.motors.relative_move(GANTRY_ID, 10)
+                        if buttons_state.R:
+                            cc.motors.relative_move(GANTRY_ID,-10)
 
+
+                    
                     # --- Handle Controller Input ---
                     # Move motor based on 'A' button and joystick direction.
                     if buttons_state.A:
-                        if joystick_dir == "RIGHT" and current_pos > MAX_DISPLACEMENT:
-                            cc.motors.relative_move(GANTRY_ID, -100)
-                        elif joystick_dir == "LEFT" and current_pos < MIN_DISPLACEMENT:
-                            cc.motors.relative_move(GANTRY_ID, 100)
-                        else:
-                            # Stop if moving towards a limit or joystick is centered.
-                            cc.motors.abrupt_stop(GANTRY_ID)
+                        if joystick_dir == "RIGHT" and current_pos > MAX_DISPLACEMENT+1500:
+                            cc.motors.relative_move(GANTRY_ID, -1000)
+                        elif joystick_dir == "LEFT" and current_pos < MIN_DISPLACEMENT-1500:
+                            cc.motors.relative_move(GANTRY_ID, 1000)
                     else:
                         # Stop the motor if the 'A' button is not being held.
                         cc.motors.abrupt_stop(GANTRY_ID)
@@ -86,13 +90,13 @@ def main():
                     # Build and print the output for the current frame.
                     output_lines = [
                         "--- Gantry Control Demo ---",
-                        f"Motor Status:     {motor_status}",
-                        f"Gantry Position:  {current_pos}",
+                        f"Motor Status:      {motor_status}",
+                        f"Gantry Position:   {current_pos}",
                         "",
                         "--- Controller Input ---",
-                        f"Joystick:         {joystick_dir}",
-                        f"A Button Held:    {buttons_state.A}",
-			f"Start Button Held:{buttons_state.Start}",
+                        f"Joystick:          {joystick_dir}",
+                        f"A Button Held:     {buttons_state.A}",
+			            f"Start Button Held: {buttons_state.Start}",
                         "",
                         "Hold 'A' and move Joystick Left/Right to move the gantry.",
                         "Press Ctrl+C to exit."
