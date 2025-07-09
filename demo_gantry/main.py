@@ -92,6 +92,7 @@ def main():
                         "--- Controller Input ---",
                         f"Joystick:         {joystick_dir}",
                         f"A Button Held:    {buttons_state.A}",
+			f"Start Button Held:{buttons_state.Start}",
                         "",
                         "Hold 'A' and move Joystick Left/Right to move the gantry.",
                         "Press Ctrl+C to exit."
