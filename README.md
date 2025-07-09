@@ -1,17 +1,9 @@
-# Gantry Control System
 
-This project provides a complete software solution for controlling a gantry system powered by a [Teknic ClearCore Motor Controller](https://www.teknic.com/products/clearcore-motion-and-io-controller/) using a standard USB GameCube controller as a real-time input device.
+# Embedded Controller Testing
 
-The system is designed with a modular, object-oriented architecture, making it easy to understand, maintain, and extend.
+This project provides tools for testing embedded devices for sensors and actuators
 
-## Features
 
-- **Real-Time Control:** Low-latency reading of joystick and button inputs to control motor movement.
-- **Modular Drivers:** Separate, reusable packages for the `ClearCoreController` (network-based) and `GameCubeController` (USB HID-based).
-- **Object-Oriented Design:** Uses a hybrid composition pattern for clean, organized, and scalable code. The main controller classes provide access to specialized sub-controllers (e.g., `controller.motors`, `controller.buttons`).
-- **Cross-Platform:** The core Python logic is compatible with both Windows and Linux. (See Linux setup for required hardware permissions).
-- **Test Harnesses Included:** Both driver packages include executable `__main__` blocks for standalone testing and diagnostics.
-- **Distribution Ready:** Includes instructions for packaging the application into a standalone Windows executable for users without Python installed.
 
 ## Project Structure
 
@@ -39,9 +31,6 @@ embedded_testing/
 └── README.md                # This file.
 ```
 
-## Setup and Installation
-
-These instructions are for developers who wish to run or modify the source code.
 
 ### 1. Prerequisites
 
