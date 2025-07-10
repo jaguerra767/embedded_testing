@@ -6,8 +6,8 @@ from clear_core.controller import ClearCoreController
 
 HATCH_MOTOR_ID = 1
 PE_SENSOR_ID = 6
-OPEN_SENSOR_ID = 8
-CLOSE_SENSOR_ID = 7
+OPEN_SENSOR_ID = 1
+CLOSE_SENSOR_ID = 2
 
 
 OPEN_STROKE = -100000
