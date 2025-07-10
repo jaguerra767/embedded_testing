@@ -1,5 +1,6 @@
 import sys
 import time
+import hatch
 from clear_core import ClearCoreController
 from gc_controller import GameCubeController
 
@@ -42,7 +43,7 @@ def main():
             res = cc.motors.set_deceleration(GANTRY_ID, 100000)
             print(f"Res{res}")
             res = cc.motors.set_velocity(GANTRY_ID, 10000)
-            print(f"Res: {res}")    
+            print(f"Res: {res}")
 
             print("Initialization complete. Ready for input.")
             time.sleep(1)  # Pause before starting the control loop
@@ -50,6 +51,7 @@ def main():
             # --- Main Control Loop ---
             while True:
                 # gc.read() returns True only when there's new data from the controller.
+                hatch.update_hatch(cc)
                 if gc.read():
                     # Get all current states at once.
                     current_pos = cc.motors.get_position(GANTRY_ID)
@@ -63,7 +65,7 @@ def main():
                         time.sleep(0.25)
                         cc.motors.enable(GANTRY_ID)
                         time.sleep(0.25)
-                    
+
                     if buttons_state.Z:
                         if buttons_state.L:
                             cc.motors.relative_move(GANTRY_ID, 10)
@@ -71,7 +73,7 @@ def main():
                             cc.motors.relative_move(GANTRY_ID,-10)
 
 
-                    
+
                     # --- Handle Controller Input ---
                     # Move motor based on 'A' button and joystick direction.
                     if buttons_state.A:
