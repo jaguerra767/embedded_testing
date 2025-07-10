@@ -1,6 +1,6 @@
 from enum import IntFlag
 from dataclasses import dataclass
-
+import time
 from clear_core.controller import ClearCoreController
 
 
@@ -35,6 +35,7 @@ def update_hatch(controller: ClearCoreController):
     params = select_params(Action(controller.io.read_input_pin(PE_SENSOR_ID)))
     in_position_res = controller.io.read_input_pin(params.sensor_id)
     print(in_position_res)
+    time.sleep(2)
     if in_position_res:
         print("Hatch in position")
         controller.motors.abrupt_stop(HATCH_MOTOR_ID)
