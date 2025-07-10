@@ -33,10 +33,11 @@ def select_params(action: Action):
 def update_hatch(controller: ClearCoreController):
     hatch_ready = controller.motors.get_status(HATCH_MOTOR_ID) == 3
     params = select_params(Action(controller.io.read_input_pin(PE_SENSOR_ID)))
-    in_position = controller.io.read_input_pin(params.sensor_id)
-
-    if in_position:
+    in_position_res = controller.io.read_input_pin(params.sensor_id)
+    print(in_position_res)
+    if in_position_res:
         print("Hatch in position")
-        controller.motors.abrupt_stop(HATCH_MOTOR_ID)
+        #controller.motors.abrupt_stop(HATCH_MOTOR_ID)
     elif hatch_ready:
-        controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
+        #controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
+        pass
