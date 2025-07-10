@@ -6,8 +6,8 @@ from clear_core.controller import ClearCoreController
 
 HATCH_MOTOR_ID = 1
 PE_SENSOR_ID = 0
-OPEN_SENSOR_ID = 2
-CLOSE_SENSOR_ID = 1
+OPEN_SENSOR_ID = 1
+CLOSE_SENSOR_ID = 2
 
 
 OPEN_STROKE = -100000
@@ -36,8 +36,7 @@ def update_hatch(controller: ClearCoreController):
     in_position_res = controller.io.read_input_pin(params.sensor_id)
     print(in_position_res)
     if in_position_res:
-        print("Hatch in position")
-        #controller.motors.abrupt_stop(HATCH_MOTOR_ID)
+        #print("Hatch in position")
+        controller.motors.abrupt_stop(HATCH_MOTOR_ID)
     elif hatch_ready:
-        #controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
-        pass
+        controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
