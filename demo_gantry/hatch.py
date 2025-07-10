@@ -1,5 +1,7 @@
 from enum import IntFlag
 from dataclasses import dataclass
+
+
 from clear_core.controller import ClearCoreController
 
 
@@ -36,9 +38,3 @@ def update_hatch(controller: ClearCoreController):
         controller.motors.abrupt_stop(HATCH_MOTOR_ID)
     elif hatch_ready:
         controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
-
-if __name__ == "__main__":
-    HOST = "192.168.1.12"
-    PORT = 8888
-    controller = ClearCoreController(HOST, PORT)
-    update_hatch(controller)
