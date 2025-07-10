@@ -24,8 +24,10 @@ class MoveParameters:
 
 def select_params(action: Action):
     if action == Action.OPEN:
+        print("Opening hatch")
         return MoveParameters(OPEN_STROKE, OPEN_SENSOR_ID)
     elif action == Action.CLOSE:
+        print("Closing hatch")
         return MoveParameters(CLOSE_STROKE, CLOSE_SENSOR_ID)
 
 def update_hatch(controller: ClearCoreController):
