@@ -1,9 +1,6 @@
-from __future__ import annotations
 from typing import TYPE_CHECKING
-import time
 
-# This block is only processed by type checkers, not at runtime.
-# It prevents a circular import error because controller.py will import this file.
+
 if TYPE_CHECKING:
     from .controller import ClearCoreController
 
