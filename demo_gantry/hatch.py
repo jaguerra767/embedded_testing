@@ -36,6 +36,7 @@ def update_hatch(controller: ClearCoreController):
     in_position = controller.io.read_input_pin(params.sensor_id)
 
     if in_position:
+        print("Hatch in position")
         controller.motors.abrupt_stop(HATCH_MOTOR_ID)
     elif hatch_ready:
         controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
