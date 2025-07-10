@@ -52,6 +52,8 @@ def main():
             while True:
                 # gc.read() returns True only when there's new data from the controller.
                 hatch.update_hatch(cc)
+
+
                 if gc.read():
                     # Get all current states at once.
                     current_pos = cc.motors.get_position(GANTRY_ID)

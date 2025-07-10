@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
+import time
 
 # This block is only processed by type checkers, not at runtime.
 # It prevents a circular import error because controller.py will import this file.
@@ -31,5 +32,7 @@ class IOControl:
         (Note: Command string is hypothetical and may need to be adjusted.)
         """
         response = self._controller._send_command(f"I{pin}")
+        print(response)
+        time.sleep(2)
         # Assuming the controller responds with "1" for high and "0" for low.
         return response.strip() == "1"
