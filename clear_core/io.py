@@ -32,6 +32,7 @@ class IOControl:
         (Note: Command string is hypothetical and may need to be adjusted.)
         """
         response = self._controller._send_command(f"I{pin}")[2]
+        print(response)
         time.sleep(2)
         # Assuming the controller responds with "1" for high and "0" for low.
         return response == "1"
