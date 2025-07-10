@@ -1,6 +1,6 @@
 import sys
 import time
-import hatch
+from . import hatch
 from clear_core import ClearCoreController
 from gc_controller import GameCubeController
 
