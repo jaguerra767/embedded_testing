@@ -23,6 +23,7 @@ class MoveParameters:
     sensor_id: int
 
 def select_params(action: Action):
+    print(action )
     if action == Action.OPEN:
         print("Opening hatch")
         return MoveParameters(OPEN_STROKE, OPEN_SENSOR_ID)
@@ -34,10 +35,7 @@ def update_hatch(controller: ClearCoreController):
     hatch_ready = controller.motors.get_status(HATCH_MOTOR_ID) == 3
     params = select_params(Action(controller.io.read_input_pin(PE_SENSOR_ID)))
     in_position_res = controller.io.read_input_pin(params.sensor_id)
-    print(in_position_res)
-    time.sleep(2)
     if in_position_res:
-        print("Hatch in position")
         controller.motors.abrupt_stop(HATCH_MOTOR_ID)
     elif hatch_ready:
         controller.motors.relative_move(HATCH_MOTOR_ID, params.stroke)
