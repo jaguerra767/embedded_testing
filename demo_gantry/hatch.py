@@ -1,6 +1,5 @@
 from enum import IntFlag
 from dataclasses import dataclass
-import time
 from clear_core.controller import ClearCoreController
 
 
