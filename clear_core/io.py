@@ -16,10 +16,6 @@ class IOControl:
         self._controller = controller
 
     def set_output_pin(self, pin: int, value: bool) -> str:
-        """
-        Sets a digital output pin to high (True) or low (False).
-        (Note: Command string is hypothetical and may need to be adjusted.)
-        """
         state = "1" if value else "0"
         return self._controller._send_command(f"O{pin}S{state}")
 

@@ -53,10 +53,6 @@ class ClearCoreController:
         self.close()
 
     def _send_command(self, command_body: str) -> str:
-        """
-        (Internal) Formats and sends a command, then returns the response.
-        This is the single point of communication with the hardware.
-        """
         if not self._sock:
             raise ConnectionError("Controller is not connected. Call connect() or use a 'with' statement.")
 
