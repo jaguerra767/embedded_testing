@@ -24,7 +24,6 @@ class MoveParameters:
     sensor_id: int
 
 def select_params(action: Action):
-    print(action )
     if action == Action.OPEN:
         return MoveParameters(OPEN_STROKE, OPEN_SENSOR_ID)
     elif action == Action.CLOSE:
