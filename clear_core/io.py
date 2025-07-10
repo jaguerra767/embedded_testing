@@ -23,13 +23,13 @@ class IOControl:
         (Note: Command string is hypothetical and may need to be adjusted.)
         """
         state = "1" if value else "0"
-        return self._controller._send_command(f"IO{pin}S{state}")
+        return self._controller._send_command(f"O{pin}S{state}")
 
     def read_input_pin(self, pin: int) -> bool:
         """
         Reads the state of a digital input pin. Returns True for high, False for low.
         (Note: Command string is hypothetical and may need to be adjusted.)
         """
-        response = self._controller._send_command(f"IO{pin}R")
+        response = self._controller._send_command(f"I{pin}")
         # Assuming the controller responds with "1" for high and "0" for low.
         return response.strip() == "1"
