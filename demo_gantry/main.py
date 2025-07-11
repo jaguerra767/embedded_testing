@@ -79,9 +79,9 @@ def main():
                     # --- Handle Controller Input ---
                     # Move motor based on 'A' button and joystick direction.
                     if buttons_state.A:
-                        if joystick_dir == "RIGHT" and current_pos > MAX_DISPLACEMENT+1500:
+                        if joystick_dir == "LEFT" and current_pos > MAX_DISPLACEMENT+1500:
                             cc.motors.relative_move(GANTRY_ID, -1000)
-                        elif joystick_dir == "LEFT" and current_pos < MIN_DISPLACEMENT-1500:
+                        elif joystick_dir == "RIGHT" and current_pos < MIN_DISPLACEMENT-1500:
                             cc.motors.relative_move(GANTRY_ID, 1000)
                     else:
                         # Stop the motor if the 'A' button is not being held.
